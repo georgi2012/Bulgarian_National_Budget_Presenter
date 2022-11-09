@@ -1,0 +1,54 @@
+<!-- <ion-header> -->
+<!-- <ion-toolbar>
+    <ion-title>barChart</ion-title>
+  </ion-toolbar> -->
+<!-- </ion-header> -->
+
+<ion-content class="">
+  <ion-card>
+    <ion-card-header class="ion-center horiz-center">
+      <ion-card-title>
+        <ion-grid>
+          <ion-row class="border">
+            <ion-accordion-group>
+              <ion-accordion toggleIcon="menu" toggleIconSlot="start">
+                <ion-item slot="header" color="light">
+                  <ion-label>Национален бюджет</ion-label>
+                </ion-item>
+                <div class="ion-padding" slot="content">
+                  Друг бюджет 1
+                </div>
+                <div class="ion-padding" slot="content">
+                  Друг бюджет 2
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+
+          </ion-row>
+          <ion-row class="horiz-center" style="background-color:silver;">
+            <ion-col>
+              <ion-button fill="clear">
+                <ion-img src="assets/left-arrow.png" class="arrows"></ion-img>
+              </ion-button>
+            </ion-col>
+            <ion-col>
+              2022
+            </ion-col>
+            <ion-col>
+              <ion-button fill="clear">
+                <ion-img src="assets/right-arrow.png" class="arrows"></ion-img>
+              </ion-button>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content style="height:100%;">
+      <div class=" bar-chart">
+        <!-- height:50%; width:50%; -->
+        <canvas #barCanvas></canvas>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
