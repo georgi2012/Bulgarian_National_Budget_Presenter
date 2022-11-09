@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import * as exampleData from '../../assets/jsonTest.json';
 //import { readFileSync } from 'fs';
 //import * as fs from 'fs';
@@ -23,13 +25,26 @@ interface data {
 
 export class Tab3Page {
 
-  constructor() {
-    const example = exampleData as data[];
-    // var fs = require('fs');
-    // const file = fs.readFileSync('/assets/jsonTest.json', "utf8");
-    console.log(example);
-    const data2 = example[1].lqnka;
-    console.log(data2);
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    // private itemService: ItemService,
+    private navCtrl: NavController) {
   }
+
+  ngOnInit() {
+
+  }
+
+  onSwipeLeft($event) {
+    this.router.navigate(['/tabs/tab2']);
+    console.log("left swipe");
+  }
+
+  onSwipeRight($event) {
+    // this.router.navigate(['/tabs/tab3']);
+    console.log("right swipe");
+  }
+
 
 }

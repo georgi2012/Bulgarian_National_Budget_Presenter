@@ -6,6 +6,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content appSwipe (swipeLeft)="onSwipeLeft($event)" (swipeRight)="onSwipeRight($event)">
   <app-bar-chart></app-bar-chart>
 </ion-content>

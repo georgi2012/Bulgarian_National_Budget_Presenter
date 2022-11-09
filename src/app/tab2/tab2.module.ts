@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { BarChartPageModule } from '../bar-chart/bar-chart.module';
+import { SwipeModule } from '../swipe/swipe.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { BarChartPageModule } from '../bar-chart/bar-chart.module';
     FormsModule,
     ExploreContainerComponentModule,
     Tab2PageRoutingModule,
-    BarChartPageModule
+    BarChartPageModule,
+    SwipeModule
   ],
   declarations: [Tab2Page]
 })
