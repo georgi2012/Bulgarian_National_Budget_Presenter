@@ -1,20 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import * as exampleData from '../../assets/jsonTest.json';
-//import { readFileSync } from 'fs';
-//import * as fs from 'fs';
-
-interface other {
-  guz: string,
-  далиможетака: string
-}
-
-interface data {
-  hello: number,
-  world: string,
-  lqnka: other[]
-}
 
 @Component({
   selector: 'app-tab3',

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
@@ -10,7 +10,11 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 export class BarChartPage implements OnInit, AfterViewInit {
 
   @ViewChild('barCanvas') private barCanvas: ElementRef;
-  barChart: any;
+  barChart: Chart;
+
+  @Input() labels: string[] = [];
+  @Input() values: number[] = [];
+
 
   constructor() {
     Chart.register(...registerables);
@@ -23,17 +27,23 @@ export class BarChartPage implements OnInit, AfterViewInit {
     this.barChartMethod();
   }
 
+  public updateData(values: number[], labels: string[]) {
+    this.values = values;
+    this.labels = labels;
+    this.barChart.destroy();
+    this.barChartMethod();
+  }
 
   barChartMethod() {
-    console.log("created");
-    const labels = ["Приходи", "Разходи"];
+    console.log("created", this.values, this.labels);
+    // const labels = ["Приходи", "Разходи"];
     const backgroundColor = ["rgba(1,86,63,255)", "rgba(168,3,46,255)"];
-    const values = [32764778.9, 20061825.9];
+    //const values = [32764778.9, 20061825.9];
 
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',
       data: {
-        labels: labels,
+        labels: this.labels,
         datasets: [
           {
             barPercentage: 0.75,
@@ -43,7 +53,7 @@ export class BarChartPage implements OnInit, AfterViewInit {
             categoryPercentage: 0.8,
             //label: "Национален бюджет 2022",
             backgroundColor: backgroundColor,
-            data: values,
+            data: this.values,
 
           }
         ]
