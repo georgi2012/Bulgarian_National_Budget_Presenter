@@ -1,5 +1,5 @@
 .bar-chart {
-    position: relative;
+    position: static;
     height: 70vw;
     width: 70vw;
 }
@@ -10,13 +10,6 @@
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-}
-
-.horiz-center {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    height: 100%;
 }
 
 .ion-center {
@@ -35,13 +28,14 @@
     border-color: rgb(169, 169, 169);
 }
 
-.ion-img {
+.arrows {
+    height: 1vw;
+    width: 1vw;
+}
+
+div {
     padding: 0;
     margin: auto;
     display: block;
-}
-
-.arrows {
-    height: 5vw;
-    width: 5vw;
+    width: 800px;
 }

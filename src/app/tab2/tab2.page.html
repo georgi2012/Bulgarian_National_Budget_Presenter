@@ -1,10 +1,10 @@
-<ion-header [translucent]="true">
+<!-- <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
       Национален бюджет
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content appSwipe (swipeLeft)="onSwipeLeft($event)" (swipeRight)="onSwipeRight($event)" *ngIf="labels.length > 0">
   <ion-card>
@@ -12,13 +12,14 @@
       <ion-card-title>
         <ion-grid>
           <ion-row class="border">
-            <ion-accordion-group>
-              <ion-accordion toggleIcon="menu" toggleIconSlot="start">
+            <ion-accordion-group #accordionGroup style="height:auto;width:80vw;">
+              <ion-accordion toggleIcon="menu" toggleIconSlot="start" value="first">
                 <ion-item slot="header" color="light">
-                  <ion-label>Национален бюджет</ion-label>
+                  <ion-label>{{curTitle}}</ion-label>
                 </ion-item>
                 <div class="ion-padding" slot="content" *ngFor="let type of getTypes()">
-                  {{type}}
+                  <button (click)="onTypeChange(type)"
+                    style="font-size:large;border-width:20px;border-color: black;">{{type}}</button>
                 </div>
               </ion-accordion>
             </ion-accordion-group>
@@ -26,7 +27,7 @@
           </ion-row>
           <ion-row class="horiz-center" style="background-color:silver;">
             <ion-col>
-              <ion-button fill="clear" (click)="onYearChange(-1)">
+              <ion-button fill="clear" (click)="onYearChange(-1)" class="ion-img">
                 <ion-img src="assets/left-arrow.png" class="arrows"></ion-img>
               </ion-button>
             </ion-col>
@@ -34,7 +35,7 @@
               {{year}}
             </ion-col>
             <ion-col>
-              <ion-button fill="clear" (click)="onYearChange(1)">
+              <ion-button fill="clear" (click)="onYearChange(1)" class="ion-img">
                 <ion-img src="assets/right-arrow.png" class="arrows"></ion-img>
               </ion-button>
             </ion-col>
@@ -43,11 +44,17 @@
         </ion-grid>
       </ion-card-title>
     </ion-card-header>
-    <!-- <ion-card-content style="height:100%;"> -->
-    <!-- <div> -->
+
   </ion-card>
-  <app-bar-chart [labels]="labels" [values]="values"></app-bar-chart>
-  <!-- </div> -->
-  <!-- </ion-card-content> -->
-  <!-- </ion-card> -->
+
+  <!-- charts -->
+  <app-doughnut-chart #d1 [labels]="dLabels_in" [values]="dValues_in" [subValues]="subValues_in"
+    [subLabels]="subLebels_in" [hidden]="page!=0">
+  </app-doughnut-chart>
+  <app-bar-chart [labels]=" labels" [values]="values" [hidden]="page!=1"></app-bar-chart>
+  <app-doughnut-chart #d2 [labels]=" dLabels_out" [values]="dValues_out" [subValues]="subValues_out"
+    [subLabels]="subLebels_out" [hidden]="page!=2">
+  </app-doughnut-chart>
+
+
 </ion-content>

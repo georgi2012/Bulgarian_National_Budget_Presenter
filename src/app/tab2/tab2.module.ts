@@ -1,5 +1,4 @@
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { Tab2PageRoutingModule } from './tab2-routing.module';
 import { BarChartPageModule } from '../bar-chart/bar-chart.module';
 import { SwipeModule } from '../swipe/swipe.module';
+import { DoughnutChartPageModule } from '../doughnut-chart/doughnut-chart.module';
 
 @NgModule({
   imports: [
@@ -18,7 +18,8 @@ import { SwipeModule } from '../swipe/swipe.module';
     ExploreContainerComponentModule,
     Tab2PageRoutingModule,
     BarChartPageModule,
-    SwipeModule
+    SwipeModule,
+    DoughnutChartPageModule
   ],
   declarations: [Tab2Page]
 })

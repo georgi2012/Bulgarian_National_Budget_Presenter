@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'bar-chart',
     loadChildren: () => import('./bar-chart/bar-chart.module').then( m => m.BarChartPageModule)
+  },
+  {
+    path: 'doughnut-chart',
+    loadChildren: () => import('./doughnut-chart/doughnut-chart.module').then( m => m.DoughnutChartPageModule)
   }
 ];
 @NgModule({

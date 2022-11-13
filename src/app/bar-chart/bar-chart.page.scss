@@ -2,6 +2,7 @@
     position: relative;
     height: 70vw;
     width: 70vw;
+    padding: 1vw 1vw 1vw 1vw;
 }
 
 .vertical-center {
@@ -12,11 +13,11 @@
     transform: translateY(-50%);
 }
 
-.horiz-center {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    height: 100%;
+div {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 800px;
 }
 
 .ion-center {
@@ -36,6 +37,6 @@
 }
 
 .arrows {
-    height: 5vw;
-    width: 5vw;
+    height: 1vw;
+    width: 1vw;
 }
