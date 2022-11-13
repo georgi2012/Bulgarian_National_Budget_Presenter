@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgZone, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonAccordion, IonAccordionGroup, NavController } from '@ionic/angular';
-import jsontest from '../../assets/BNBtest.json';
+import jsontest from '../../assets/data-1-1.json';
 import { DataMapper, MainMapper, SubtypeMapper, TypeMapper } from 'src/helpers/interfaces';
 import { BarChartPage } from '../bar-chart/bar-chart.page';
 import { DoughnutChartPage } from '../doughnut-chart/doughnut-chart.page';
@@ -9,7 +9,8 @@ import { DoughnutChartPage } from '../doughnut-chart/doughnut-chart.page';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class Tab2Page implements OnInit {
 
@@ -37,11 +38,44 @@ export class Tab2Page implements OnInit {
   subLebels_out: string[] = [];
   dLabels_out: string[] = [];
   //list
+  prihodi: TypeMapper[] = [];
+  razhodi: TypeMapper[] = [];
+  priPer: number;
+  razPer: number;
   curTitle: string;
   //other
   year: number;
+  backgroundColorIn = [
+    "rgba(0,153,51,255)",
+    "rgba(0,87,63,255)",
+    "rgba(0,51,51,255)",
+    "rgba(0,102,0,255)",
+    "rgba(0,102,102,255)",
+    "rgba(51,102,51,255)",
+    "rgba(0,153,51,255)",
+    "rgba(0,87,63,255)",
+    "rgba(0,51,51,255)",
+    "rgba(0,102,0,255)",
+    "rgba(0,102,102,255)",
+    "rgba(51,102,51,255)"
+  ];
+  backgroundColorOut = [
+    "rgba(102,0,51,255)",
+    "rgba(167,0,45,255)",
+    "rgba(102,0,51,255)",
+    "rgba(153,0,51,255)",
+    "rgba(153,0,102,255)",
+    "rgba(153,51,51,255)",
+    "rgba(102,0,51,255)",
+    "rgba(167,0,45,255)",
+    "rgba(102,0,51,255)",
+    "rgba(153,0,51,255)",
+    "rgba(153,0,102,255)",
+    "rgba(153,51,51,255)"
+  ];
 
   constructor( //meow
+    private zone: NgZone,
     private router: Router) {
     //
     this.loadDataFromFile();
@@ -61,6 +95,19 @@ export class Tab2Page implements OnInit {
     this.updateData();
   }
 
+  public trackItem(index: number, item: TypeMapper) {
+    return item.value;
+  }
+
+  public getPrihodi() {
+    this.prihodi = this.yearMap.get(this.year).get(this.curTitle)[0].subtype;//(this.zone.run(() => data))
+    this.priPer = this.yearMap.get(this.year).get(this.curTitle)[0].value;
+  }
+  public getRazhodi() {
+    this.razhodi = this.yearMap.get(this.year).get(this.curTitle)[1].subtype;
+    this.razPer = this.yearMap.get(this.year).get(this.curTitle)[1].value;
+  }
+
 
   private loadHashMaps() {
     this.jsonfile.forEach(element => {
@@ -70,6 +117,7 @@ export class Tab2Page implements OnInit {
       });
       this.yearMap.set(element.year, titleMap);
     });
+    console.log("yearMap", this.yearMap);
 
   }
 
@@ -98,20 +146,24 @@ export class Tab2Page implements OnInit {
 
   private loadTypeFor(data: TypeMapper[], labels: string[], values: number[], subVals: number[], subLebels: string[]) {
     data.forEach(el => {
-      labels.push(el.type);
+      labels.push(el.title);
       values.push(el.value);
-      el.subdata.forEach(subd => {
-        subVals.push(subd.value);
-        subLebels.push(subd.name);
-      });
+      if (el.subdata !== undefined)
+        el.subdata.forEach(subd => {
+          subVals.push(subd.value);
+          subLebels.push(subd.name);
+        });
     });
+
+    this.getPrihodi();
+    this.getRazhodi();
   }
 
   private loadDataForTheYear() {
     this.nullify();
     this.yearMap.get(this.year).get(this.curTitle).forEach(element => { //prizohi & razhodi
-      this.labels.push(element.type);
-      if (element.type == "Приходи") {
+      this.labels.push(element.title);
+      if (element.title == "Приходи") {
         this.loadTypeFor(element.subtype, this.dLabels_in, this.dValues_in, this.subVals_in, this.subLebels_in);
       } else {
         this.loadTypeFor(element.subtype, this.dLabels_out, this.dValues_out, this.subVals_out, this.subLebels_out);
@@ -128,8 +180,8 @@ export class Tab2Page implements OnInit {
 
   updateData() {
     this.barPage.updateData(this.values, this.labels);
-    this.doughnutPage1.updateData(this.dValues_in, this.dLabels_in, this.subLebels_in, this.subVals_in);
-    this.doughnutPage2.updateData(this.dValues_out, this.dLabels_out, this.subLebels_out, this.subVals_out);
+    this.doughnutPage1.updateData(this.dValues_in, this.dLabels_in, this.subLebels_in, this.subVals_in, true);
+    this.doughnutPage2.updateData(this.dValues_out, this.dLabels_out, this.subLebels_out, this.subVals_out, false);
   }
 
   onTypeChange = (type: string) => {

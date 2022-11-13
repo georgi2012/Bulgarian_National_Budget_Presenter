@@ -49,12 +49,47 @@
 
   <!-- charts -->
   <app-doughnut-chart #d1 [labels]="dLabels_in" [values]="dValues_in" [subValues]="subValues_in"
-    [subLabels]="subLebels_in" [hidden]="page!=0">
+    [subLabels]="subLebels_in" [hidden]="page!=0" [isIncome]="true">
   </app-doughnut-chart>
+  <div [hidden]="page!=0">
+    <ion-accordion-group #accordionGroup *ngFor="let prihod of prihodi">
+      <ion-accordion toggleIcon="menu" toggleIconSlot="start" value="first">
+        <ion-item slot="header" color="light">
+          <span class="dot"></span>
+          <ion-label>{{prihod.title}}</ion-label>
+          <div style="text-align:left;">{{prihodi.length>1 ?((prihod.value*100)/priPer).toFixed(2) : 100}}%</div>
+        </ion-item>
+        <div class="ion-padding" slot="content" *ngFor="let subd of prihod.subdata">
+          <span class="dot"></span>
+          {{subd.name}}
+          <div style="text-align:left;">{{prihod.subdata.length>1 ?((subd.value*100)/prihod.value).toFixed(2) : 100}}%
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+
+
   <app-bar-chart [labels]=" labels" [values]="values" [hidden]="page!=1"></app-bar-chart>
   <app-doughnut-chart #d2 [labels]=" dLabels_out" [values]="dValues_out" [subValues]="subValues_out"
-    [subLabels]="subLebels_out" [hidden]="page!=2">
+    [subLabels]="subLebels_out" [hidden]="page!=2" [isIncome]="false">
   </app-doughnut-chart>
-
+  <div [hidden]="page!=2">
+    <ion-accordion-group #accordionGroup style="height:auto;width:80vw;" *ngFor="let razhod of razhodi">
+      <ion-accordion toggleIcon="menu" toggleIconSlot="start" value="first">
+        <ion-item slot="header" color="light">
+          <span class="dot"></span>
+          <ion-label>{{razhod.title}}</ion-label>
+          <div style="text-align:left;">{{razhodi.length>1 ? ((razhod.value*100)/razPer).toFixed(2) : 100}}%</div>
+        </ion-item>
+        <div class="ion-padding" slot="content" *ngFor="let subd of razhod.subdata">
+          <span class="dot"></span>
+          {{subd.name}}
+          <div style="text-align:left;">{{razhod.subdata.length>1 ?((subd.value*100)/razhod.value).toFixed(2) : 100}}%
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
 
 </ion-content>

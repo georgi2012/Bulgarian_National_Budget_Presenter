@@ -10,12 +10,13 @@ export interface MainMapper {
 }
 
 export interface SubtypeMapper {
-    type: string; //"Приходи", "Разходи"
+    title: string; //"Приходи", "Разходи" /type
+    value: number;
     subtype: TypeMapper[];
 }
 
 export interface TypeMapper {
-    type: string;
+    title: string;
     value: number;
     subdata: Subdata[];
 }
