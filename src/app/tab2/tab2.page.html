@@ -15,7 +15,7 @@
             <ion-accordion-group #accordionGroup style="height:auto;width:80vw;">
               <ion-accordion toggleIcon="menu" toggleIconSlot="start" value="first">
                 <ion-item slot="header" color="light">
-                  <ion-label>{{curTitle}}</ion-label>
+                  <ion-label style="font-size: 5vw;">{{curTitle}}</ion-label>
                 </ion-item>
                 <div class="ion-padding" slot="content" *ngFor="let type of getTypes()">
                   <button (click)="onTypeChange(type)"
@@ -78,7 +78,7 @@
     [subLabels]="subLebels_out" [hidden]="page!=2" [isIncome]="false">
   </app-doughnut-chart>
   <div [hidden]="page!=2">
-    <ion-accordion-group #accordionGroup style="height:auto;width:80vw;" *ngFor="let razhod of razhodi; let i = index">
+    <ion-accordion-group #accordionGroup *ngFor="let razhod of razhodi; let i = index">
       <ion-accordion value="first">
         <ion-item slot="header" color="light">
           <span class="dot" style="background-color:{{backgroundColorOut[i]}}"></span>
