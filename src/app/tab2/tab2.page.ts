@@ -106,14 +106,21 @@ export class Tab2Page implements OnInit {
   }
 
   public getPrihodi() {
-    this.prihodi = this.yearMap.get(this.year).get(this.curTitle)[0].subtype;//(this.zone.run(() => data))
+    this.prihodi = this.yearMap.get(this.year).get(this.curTitle)[0].subtype.sort((a, b) => {
+      return b.value - a.value;
+    });
     this.priPer = this.yearMap.get(this.year).get(this.curTitle)[0].value;
   }
   public getRazhodi() {
-    this.razhodi = this.yearMap.get(this.year).get(this.curTitle)[1].subtype;
+    this.razhodi = this.yearMap.get(this.year).get(this.curTitle)[1].subtype.sort((a, b) => {
+      return b.value - a.value;
+    });
     this.razPer = this.yearMap.get(this.year).get(this.curTitle)[1].value;
   }
 
+  getSubdata(prihod: TypeMapper) {
+    return prihod.subdata.sort((a, b) => { return b.value - a.value; });
+  }
 
   private loadHashMaps() {
     this.jsonfile.forEach(element => {
@@ -175,19 +182,18 @@ export class Tab2Page implements OnInit {
         this.loadTypeFor(element.subtype, this.dLabels_out, this.dValues_out, this.subVals_out, this.subLebels_out);
       }
       //calculate value
-      let sum = 0;
-      element.subtype.forEach(el => {
-        sum += el.value;
-      });
-      this.values.push(sum);
-      //console.log("using map for year " + this.year + " for " + title, element, sum);
+      // let sum = 0;
+      // element.subtype.forEach(el => {
+      //   sum += el.value;
+      // });
+      this.values.push(element.value);
     });
   }
 
   updateData() {
     this.barPage.updateData(this.values, this.labels);
-    this.doughnutPage1.updateData(this.dValues_in, this.dLabels_in, this.subLebels_in, this.subVals_in, true);
-    this.doughnutPage2.updateData(this.dValues_out, this.dLabels_out, this.subLebels_out, this.subVals_out, false);
+    this.doughnutPage1.updateData(this.dValues_in, this.dLabels_in, this.subLebels_in, this.subVals_in, true, this.yearMap.get(this.year).get(this.curTitle)[0].value);
+    this.doughnutPage2.updateData(this.dValues_out, this.dLabels_out, this.subLebels_out, this.subVals_out, false, this.yearMap.get(this.year).get(this.curTitle)[1].value);
     this.nextNum = 0;
     this.nextNum2 = 0;
   }
@@ -219,7 +225,6 @@ export class Tab2Page implements OnInit {
   }
 
   onSwipeLeft($event) {
-    //this.router.navigate(['/tabs/tab1']);
     if (this.page > 0) {
       this.page--;
     }
@@ -227,7 +232,6 @@ export class Tab2Page implements OnInit {
   }
 
   onSwipeRight($event) {
-    //this.router.navigate(['/tabs/tab3']);
     if (this.page < 2) {
       this.page++;
     }

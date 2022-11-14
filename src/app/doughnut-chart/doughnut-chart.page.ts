@@ -17,6 +17,7 @@ export class DoughnutChartPage implements OnInit, AfterViewInit {
   @Input() subLabels: string[] = [];
   @Input() values: number[] = [];
   @Input() subValues: number[] = [];
+  total: number = 0;
 
 
 
@@ -32,12 +33,13 @@ export class DoughnutChartPage implements OnInit, AfterViewInit {
     this.barChartMethod();
   }
 
-  public updateData(values: number[], labels: string[], sublbls: string[], subdt: number[], isIncome: boolean) {
+  public updateData(values: number[], labels: string[], sublbls: string[], subdt: number[], isIncome: boolean, total: number) {
     this.values = values;
     this.labels = labels;
     this.subLabels = sublbls;
     this.subValues = subdt;
     this.isIncome = isIncome;
+    this.total = total;
     this.barChart.destroy();
     this.barChartMethod();
   }
@@ -72,6 +74,23 @@ export class DoughnutChartPage implements OnInit, AfterViewInit {
       "rgba(153,51,51,255)"
     ];
     this.backcolors = this.isIncome ? backgroundColorIn : backgroundColorOut;
+
+    // const centerText = {
+    //   id: 'centerText',
+    //   afterDatasetsDraw(chart, args, options) {
+    //     const { ctx, chartArea: { left, right, top, bottom, width, height } } = chart;
+    //     ctx.save();
+    //     if (chart._active.length > 0) {
+    //       console.log("total", this.total);
+    //       ctx.font = 'bolder 20px Arial';
+    //       ctx.fillStyle = 'black';
+    //       ctx.textAlign = 'center';
+    //       const curtext = this.isIncome ? "Приходи" : "Разходи";
+    //       ctx.fillText(curtext, width / 2, height / 2 + top);
+    //       //ctx.restore();
+    //     }
+    //   }
+    // }
 
     console.log("making doughnut with", this.subValues, this.values);
     this.barChart = new Chart(this.barCanvas.nativeElement, {

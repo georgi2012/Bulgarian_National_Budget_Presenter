@@ -53,13 +53,16 @@
   </app-doughnut-chart>
   <div [hidden]="page!=0">
     <ion-accordion-group #accordionGroup *ngFor="let prihod of prihodi; let i=index">
-      <ion-accordion toggleIcon="menu" toggleIconSlot="start" value="first">
+      <ion-accordion value="first">
         <ion-item slot="header" color="light">
           <span class="dot" style="background-color:{{backgroundColorIn[i]}}"></span>
           <ion-label>{{prihod.title}}</ion-label>
           <div style="text-align:left;">{{prihodi.length>1 ?((prihod.value*100)/priPer).toFixed(2) : 100}}%</div>
         </ion-item>
-        <div class="ion-padding" slot="content" *ngFor="let subd of prihod.subdata">
+        <div class="ion-padding" slot="content">
+          ({{prihod.title}})
+        </div>
+        <div class="ion-padding" slot="content" *ngFor="let subd of getSubdata(prihod)">
           <span class="dot" style="background-color:{{backgroundColorIn[getNext1()]}}"></span>
           {{subd.name}}
           <div style="text-align:left;">{{prihod.subdata.length>1 ?((subd.value*100)/prihod.value).toFixed(2) : 100}}%
@@ -76,14 +79,17 @@
   </app-doughnut-chart>
   <div [hidden]="page!=2">
     <ion-accordion-group #accordionGroup style="height:auto;width:80vw;" *ngFor="let razhod of razhodi; let i = index">
-      <ion-accordion toggleIcon="menu" toggleIconSlot="start" value="first">
+      <ion-accordion value="first">
         <ion-item slot="header" color="light">
           <span class="dot" style="background-color:{{backgroundColorOut[i]}}"></span>
           <ion-label>{{razhod.title}}</ion-label>
           <div style=" text-align:left;">{{razhodi.length>1 ? ((razhod.value*100)/razPer).toFixed(2) : 100}}%
           </div>
         </ion-item>
-        <div class="ion-padding" slot="content" *ngFor="let subd of razhod.subdata">
+        <div class="ion-padding" slot="content">
+          ({{razhod.title}})
+        </div>
+        <div class="ion-padding" slot="content" *ngFor="let subd of getSubdata(razhod)">
           <span class="dot" style="background-color:{{backgroundColorOut[getNext2()]}}"></span>
           {{subd.name}}
           <div style=" text-align:left;">{{razhod.subdata.length>1 ?((subd.value*100)/razhod.value).toFixed(2) : 100}}%
