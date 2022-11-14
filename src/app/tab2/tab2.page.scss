@@ -1,4 +1,5 @@
 .bar-chart {
+    display: inline-block;
     position: relative;
     height: 70vw;
     width: 70vw;
@@ -49,7 +50,12 @@
 .dot {
     height: 5vw;
     width: 5vw;
-    background-color: rgb(183, 28, 28);
+    // background-color: rgb(183, 28, 28);
     border-radius: 50%;
     display: inline-block;
+}
+
+.list {
+    display: inline-block;
+    margin-top: -1300px;
 }

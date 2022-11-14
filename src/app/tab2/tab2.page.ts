@@ -10,7 +10,7 @@ import { DoughnutChartPage } from '../doughnut-chart/doughnut-chart.page';
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Tab2Page implements OnInit {
 
@@ -74,6 +74,7 @@ export class Tab2Page implements OnInit {
     "rgba(153,51,51,255)"
   ];
 
+  //TODO: SORT DATA BY % (VALUE)?
   constructor( //meow
     private zone: NgZone,
     private router: Router) {
@@ -95,8 +96,13 @@ export class Tab2Page implements OnInit {
     this.updateData();
   }
 
-  public trackItem(index: number, item: TypeMapper) {
-    return item.value;
+  nextNum: number = 0;
+  getNext1() {
+    return (this.nextNum++) % this.backgroundColorIn.length;
+  }
+  nextNum2: number = 0;
+  getNext2() {
+    return (this.nextNum2++) % this.backgroundColorOut.length;
   }
 
   public getPrihodi() {
@@ -182,6 +188,8 @@ export class Tab2Page implements OnInit {
     this.barPage.updateData(this.values, this.labels);
     this.doughnutPage1.updateData(this.dValues_in, this.dLabels_in, this.subLebels_in, this.subVals_in, true);
     this.doughnutPage2.updateData(this.dValues_out, this.dLabels_out, this.subLebels_out, this.subVals_out, false);
+    this.nextNum = 0;
+    this.nextNum2 = 0;
   }
 
   onTypeChange = (type: string) => {
@@ -192,6 +200,7 @@ export class Tab2Page implements OnInit {
     //update bar
     this.loadDataForTheYear();
     this.updateData();
+
   }
 
   onYearChange(modifier: number) {

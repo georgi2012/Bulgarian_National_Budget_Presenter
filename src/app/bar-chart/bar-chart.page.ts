@@ -38,7 +38,6 @@ export class BarChartPage implements OnInit, AfterViewInit {
     console.log("created", this.values, this.labels);
     // const labels = ["Приходи", "Разходи"];
     const backgroundColor = ["rgba(1,86,63,255)", "rgba(168,3,46,255)"];
-    //const values = [32764778.9, 20061825.9];
 
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: 'bar',

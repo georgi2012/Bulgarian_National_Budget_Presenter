@@ -52,9 +52,9 @@ export class SwipeDirective implements AfterViewInit {
     const timeDiff = event.timeStamp - this.time;
 
     // simulate a swipe -> less than 500 ms and more than 60 px
-    if (timeDiff < 500) {
+    if (timeDiff < 700) {
       // touch movement lasted less than 500 ms
-      if (Math.abs(xDiff) > 60) {
+      if (Math.abs(xDiff) > 100) {
         // delta x is at least 60 pixels
         if (xDiff > 0) {
           this.swipeRight.emit(event);
